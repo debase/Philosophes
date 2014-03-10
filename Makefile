@@ -5,7 +5,7 @@
 ## Login   <moriss_h@epitech.net>
 ##
 ## Started on  Sun Jun  9 03:35:24 2013 Hugues
-## Last update Mon Mar 10 10:38:08 2014 Hugues
+## Last update Mon Mar 10 23:34:15 2014 Hugues
 ##
 
 SRC		=	main.c
@@ -18,8 +18,11 @@ NAME		=	philo
 
 OBJDIR		=	obj/
 SRCDIR		=	src/
+INCDIR		=	inc/
 
-CFLAGS		+=	-Wall -Wextra -Winit-self -Wunused-function -pipe -Winit-self
+CFLAGS		+=	-I$(INCDIR)
+CFLAGS		+=	-Wall -Wextra -Winit-self
+CFLAGS		+=	-Wunused-function -pipe -Winit-self
 
 LDFLAGS		+=	-Wl,-O1
 
@@ -27,6 +30,7 @@ OBJ		=	$(patsubst %.c,${OBJDIR}%.o, $(SRC))
 
 dummy		:=	$(shell test -d $(OBJDIR) || mkdir -p $(OBJDIR))
 dummy		:=	$(shell test -d $(SRCDIR) || mkdir -p $(SRCDIR))
+dummy           :=      $(shell test -d $(INCDIR) || mkdir -p $(INCDIR))
 
 $(OBJDIR)%.o:		$(patsubst %.c,${SRCDIR}%.c, %.c)
 			@if [ ! -d $(dir $@) ]; then mkdir -p $(dir $@); fi
