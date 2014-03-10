@@ -5,7 +5,7 @@
 ## Login   <moriss_h@epitech.net>
 ##
 ## Started on  Sun Jun  9 03:35:24 2013 Hugues
-## Last update Mon Mar 10 09:11:25 2014 Hugues
+## Last update Mon Mar 10 10:38:08 2014 Hugues
 ##
 
 SRC		=	main.c
@@ -19,9 +19,9 @@ NAME		=	philo
 OBJDIR		=	obj/
 SRCDIR		=	src/
 
-CFLAGS		+=	-Wall -Wextra
+CFLAGS		+=	-Wall -Wextra -Winit-self -Wunused-function -pipe -Winit-self
 
-LDFLAGS		+=
+LDFLAGS		+=	-Wl,-O1
 
 OBJ		=	$(patsubst %.c,${OBJDIR}%.o, $(SRC))
 
