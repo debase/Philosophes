@@ -30,7 +30,7 @@ OBJ		=	$(patsubst %.c,${OBJDIR}%.o, $(SRC))
 
 dummy		:=	$(shell test -d $(OBJDIR) || mkdir -p $(OBJDIR))
 dummy		:=	$(shell test -d $(SRCDIR) || mkdir -p $(SRCDIR))
-dummy           :=      $(shell test -d $(INCDIR) || mkdir -p $(INCDIR))
+dummy		:=	$(shell test -d $(INCDIR) || mkdir -p $(INCDIR))
 
 $(OBJDIR)%.o:		$(patsubst %.c,${SRCDIR}%.c, %.c)
 			@if [ ! -d $(dir $@) ]; then mkdir -p $(dir $@); fi
