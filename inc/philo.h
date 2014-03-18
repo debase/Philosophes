@@ -28,11 +28,13 @@ typedef enum
 typedef struct		s_philosophe
 {
   pthread_t		thread;
-  pthread_mutex_t	right_baguette;
-  pthread_mutex_t	left_baguette;
+  pthread_mutex_t	*right_baguette;
+  pthread_mutex_t	*left_baguette;
   e_pstate		state;
 }			t_philosophe;
 
 void	*philosophe(void *arg);
+int	create_baguette(pthread_mutex_t *baguette);
+int	destroy_baguette(pthread_mutex_t *baguette);
 
 #endif // PHILO_H_INCLUDED

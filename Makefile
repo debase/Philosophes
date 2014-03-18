@@ -9,7 +9,8 @@
 ##
 
 SRC		=	main.c \
-			philo.c
+			philo.c \
+			mutex.c
 
 CC		=	gcc
 
