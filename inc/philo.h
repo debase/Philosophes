@@ -5,7 +5,7 @@
 ** Login   <moriss_h@epitech.net>
 **
 ** Started on  Mon Oct  8 09:34:29 2012 hugues morisset
-** Last update Tue Mar 18 18:00:42 2014 Etienne
+** Last update Tue Mar 18 18:17:06 2014 Etienne
 */
 
 #ifndef PHILO_H_INCLUDED
@@ -33,8 +33,11 @@ typedef struct		s_philosophe
   e_pstate		state;
 }			t_philosophe;
 
-int	init_data(t_philosophe *philo, pthread_mutex_t *baguette);
+int	create_baguette(pthread_mutex_t *baguette);
+int	init_philo(t_philosophe *ph, pthread_mutex_t *right,
+		   pthread_mutex_t *left);
 void	*philosophe(void *arg);
 int	destroy_baguette(pthread_mutex_t *baguette);
+int	destroy_philo(t_philosophe *ph);
 
 #endif // PHILO_H_INCLUDED
