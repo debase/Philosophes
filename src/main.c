@@ -49,6 +49,13 @@ int			main()
   i = 0;
   while (i < PHILOSOPHES)
     {
+      if (create_baguette(&(baguette[i])))
+        return (3);
+      i++;
+    }
+  i = 0;
+  while (i < PHILOSOPHES)
+    {
       if (init_philo(&(philo[i]), &(baguette[i]),
                      &(baguette[(i + 1) % PHILOSOPHES])))
         return (1);
