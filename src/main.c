@@ -10,33 +10,76 @@
 
 #include "philo.h"
 
+int	init_philo(t_philosophe *ph)
+{
+  int	ret;
+
+  if ((ret = pthread_mutex_init(&(ph->right_baguette), NULL)))
+    {
+      errno = ret;
+      perror("pthread_mutex_init");
+      return (1);
+    }
+  if ((ret = pthread_mutex_init(&(ph->left_baguette), NULL)))
+    {
+      errno = ret;
+      perror("pthread_mutex_init");
+      return (1);
+    }
+  if ((ret = pthread_create(&(ph->thread), NULL, &philosophe, ph)))
+    {
+      errno = ret;
+      perror("pthread_create");
+      return (1);
+    }
+  ph->state = REST;
+  return (0);
+}
+
+int	destroy_philo(t_philosophe *ph)
+{
+  int	ret;
+
+  if ((ret = pthread_join(ph->thread, NULL)))
+    {
+      errno = ret;
+      perror("pthread_join");
+      return (1);
+    }
+  if ((ret = pthread_mutex_destroy(&(ph->right_baguette))))
+    {
+      errno = ret;
+      perror("pthread_mutex_destroy");
+      return (1);
+    }
+  if ((ret = pthread_mutex_destroy(&(ph->left_baguette))))
+    {
+      errno = ret;
+      perror("pthread_mutex_destroy");
+      return (1);
+    }
+  return (0);
+}
+
 int		main()
 {
-  pthread_t	thread[PHILOSOPHES];
+  t_philosophe	philo[PHILOSOPHES];
   int		i;
-  int		ret;
 
   i = 0;
   while (i < PHILOSOPHES)
     {
-      if ((ret = pthread_create(&(thread[i]), NULL, &philosophe, NULL)))
-        {
-          errno = ret;
-          perror("pthread_create");
-          return (1);
-        }
+      if (init_philo(&(philo[i])))
+        return (1);
       i++;
     }
   i = 0;
   while (i < PHILOSOPHES)
     {
-      if ((ret = pthread_join(thread[i], NULL)))
-        {
-          errno = ret;
-          perror("pthread_join");
-          return (2);
-        }
+      if (destroy_philo(&(philo[i])))
+        return (2);
       i++;
     }
   return (0);
 }
+

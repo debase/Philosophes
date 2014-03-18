@@ -18,6 +18,21 @@
 
 # define PHILOSOPHES 7
 
+typedef enum
+{
+  REST,
+  EAT,
+  THINK
+}	e_pstate;
+
+typedef struct		s_philosophe
+{
+  pthread_t		thread;
+  pthread_mutex_t	right_baguette;
+  pthread_mutex_t	left_baguette;
+  e_pstate		state;
+}			t_philosophe;
+
 void	*philosophe(void *arg);
 
 #endif // PHILO_H_INCLUDED

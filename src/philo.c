@@ -10,9 +10,11 @@
 
 #include "philo.h"
 
-void	*philosophe(void *arg)
+void			*philosophe(void *arg)
 {
-  (void)arg;
+  t_philosophe	*ph;
+
+  ph = arg;
   printf("hello\n");
   return (NULL);
 }
