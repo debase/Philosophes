@@ -14,12 +14,14 @@ int		main()
 {
   pthread_t	thread[PHILOSOPHES];
   int		i;
+  int		ret;
 
   i = 0;
   while (i < PHILOSOPHES)
     {
-      if (!pthread_create(&(thread[i]), NULL, &philosophe, NULL))
+      if ((ret = pthread_create(&(thread[i]), NULL, &philosophe, NULL)))
         {
+          errno = ret;
           perror("pthread_create");
           return (1);
         }
@@ -28,8 +30,9 @@ int		main()
   i = 0;
   while (i < PHILOSOPHES)
     {
-      if (!pthread_join(thread[i], NULL))
+      if ((ret = pthread_join(thread[i], NULL)))
         {
+          errno = ret;
           perror("pthread_join");
           return (2);
         }
