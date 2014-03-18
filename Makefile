@@ -8,7 +8,8 @@
 ## Last update Mon Mar 10 23:34:15 2014 Hugues
 ##
 
-SRC		=	main.c
+SRC		=	main.c \
+			philo.c
 
 CC		=	gcc
 
@@ -24,7 +25,7 @@ CFLAGS		+=	-I$(INCDIR)
 CFLAGS		+=	-Wall -Wextra -Winit-self
 CFLAGS		+=	-Wunused-function -pipe -Winit-self
 
-LDFLAGS		+=	-Wl,-O1
+LDFLAGS		+=	-Wl,-O1 -lpthread
 
 OBJ		=	$(patsubst %.c,${OBJDIR}%.o, $(SRC))
 
