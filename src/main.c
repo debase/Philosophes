@@ -15,15 +15,15 @@ int	init_philo(t_philosophe *ph, pthread_mutex_t *right,
 {
   int	ret;
 
+  ph->right_baguette = right;
+  ph->left_baguette = left;
+  ph->state = REST;
   if ((ret = pthread_create(&(ph->thread), NULL, &philosophe, ph)))
     {
       errno = ret;
       perror("pthread_create");
       return (1);
     }
-  ph->right_baguette = right;
-  ph->left_baguette = left;
-  ph->state = REST;
   return (0);
 }
 
@@ -40,11 +40,10 @@ int	destroy_philo(t_philosophe *ph)
   return (0);
 }
 
-int			main()
+int	start_philo(t_philosophe philo[PHILOSOPHES],
+                pthread_mutex_t baguette[PHILOSOPHES])
 {
-  t_philosophe		philo[PHILOSOPHES];
-  pthread_mutex_t	baguette[PHILOSOPHES];
-  int		i;
+  int	i;
 
   i = 0;
   while (i < PHILOSOPHES)
@@ -61,6 +60,14 @@ int			main()
         return (1);
       i++;
     }
+  return (0);
+}
+
+int	end_philo(t_philosophe philo[PHILOSOPHES],
+              pthread_mutex_t baguette[PHILOSOPHES])
+{
+  int	i;
+
   i = 0;
   while (i < PHILOSOPHES)
     {
@@ -75,6 +82,18 @@ int			main()
         return (3);
       i++;
     }
+  return (0);
+}
+
+int	main()
+{
+  t_philosophe		philo[PHILOSOPHES];
+  pthread_mutex_t	baguette[PHILOSOPHES];
+
+  if (start_philo(philo, baguette))
+    return (1);
+  if (end_philo(philo, baguette))
+    return (1);
   return (0);
 }
 
