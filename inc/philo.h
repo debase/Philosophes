@@ -25,13 +25,14 @@ typedef enum
   THINK
 }	e_pstate;
 
-typedef struct		s_philosophe
+typedef struct				s_philosophe
 {
-  pthread_t		thread;
-  pthread_mutex_t	*right_baguette;
-  pthread_mutex_t	*left_baguette;
-  e_pstate		state;
-}			t_philosophe;
+  pthread_t				thread;
+  pthread_mutex_t			baguette;
+  struct s_philosophe		*next;
+  struct s_philosophe		*previous;
+  e_pstate				state;
+}					t_philosophe;
 
 void	*philosophe(void *arg);
 int	create_baguette(pthread_mutex_t *baguette);
