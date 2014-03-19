@@ -59,7 +59,6 @@ fclean:	clean
 	@echo -e "Removing ${NAME} !" | sed 's/^-e //' \
 	| sed 's/[-a-zA-Z]\+/\x1B[36m&\x1B[0m/g'
 	@$(RM) $(NAME)
-	@$(RM) $(SYMLINK)
 
 re:	fclean all
 
