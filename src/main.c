@@ -5,16 +5,17 @@
 ** Login   <moriss_h@epitech.net>
 **
 ** Started on  Mon Oct  8 09:34:29 2012 hugues morisset
-** Last update Tue Mar 18 18:08:19 2014 Etienne
+** Last update Wed Mar 19 23:56:27 2014 Etienne
 */
 
 #include "philo.h"
 
 int	init_philo(t_philosophe *ph, t_philosophe *previous,
-               t_philosophe *next)
+		   t_philosophe *next, int id)
 {
   if (create_baguette(&(ph->baguette)))
     return (1);
+  ph->id = id;
   ph->state = REST;
   ph->next = next;
   ph->previous = previous;
@@ -42,7 +43,7 @@ int	start_philo(t_philosophe philo[PHILOSOPHES])
   i = -1;
   while (++i < PHILOSOPHES)
     if (init_philo(&(philo[i]), &(philo[(i - 1 + PHILOSOPHES) % PHILOSOPHES]),
-                   &(philo[(i + 1) % PHILOSOPHES])))
+                   &(philo[(i + 1) % PHILOSOPHES]), i))
       return (1);
   i = -1;
   while (++i < PHILOSOPHES)
