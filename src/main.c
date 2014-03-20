@@ -5,9 +5,11 @@
 ** Login   <moriss_h@epitech.net>
 **
 ** Started on  Mon Oct  8 09:34:29 2012 hugues morisset
-** Last update Thu Mar 20 19:54:00 2014 Etienne
+** Last update Thu Mar 20 21:37:55 2014 Etienne
 */
 
+#include <time.h>
+#include <stdlib.h>
 #include "philo.h"
 
 int	init_philo(t_philosophe *ph, t_philosophe *previous,
@@ -18,6 +20,7 @@ int	init_philo(t_philosophe *ph, t_philosophe *previous,
   ph->id = id;
   sprintf(ph->color, "\x1b[3%dm", (ph->id % 7) + 1);
   ph->state = REST;
+  ph->energy = 100;
   ph->next = next;
   ph->previous = previous;
   return (0);
@@ -77,6 +80,7 @@ int			main()
 {
   t_philosophe		philo[PHILOSOPHES];
 
+  srand(time(NULL));
   if (start_philo(philo))
     return (1);
   if (end_philo(philo))
