@@ -5,7 +5,7 @@
 ** Login   <moriss_h@epitech.net>
 **
 ** Started on  Mon Oct  8 09:34:29 2012 hugues morisset
-** Last update Thu Mar 20 19:17:45 2014 Etienne
+** Last update Thu Mar 20 19:55:12 2014 Etienne
 */
 
 #include "philo.h"
@@ -13,13 +13,13 @@
 
 void			philo_sleep(t_philosophe *ph)
 {
-  printf("philo #%d is sleeping.\n", ph->id);
+  printf("%sphilo #%d is sleeping.%s\n", ph->color, ph->id, RESET_COLOR);
   sleep(2);
 }
 
 void			philo_eat(t_philosophe *ph)
 {
-  printf("philo #%d is eating.\n", ph->id);
+  printf("%sphilo #%d is eating.%s\n", ph->color, ph->id, RESET_COLOR);
   sleep(2);
   pthread_mutex_unlock(&ph->baguette);
   pthread_mutex_unlock(&ph->next->baguette);
@@ -28,7 +28,7 @@ void			philo_eat(t_philosophe *ph)
 
 void			philo_think(t_philosophe *ph, int left)
 {
-  printf("philo #%d is thinking.\n", ph->id);
+  printf("%sphilo #%d is thinking.%s\n", ph->color, ph->id, RESET_COLOR);
   sleep(2);
   if (!left)
     pthread_mutex_lock(&ph->next->baguette);

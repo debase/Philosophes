@@ -5,7 +5,7 @@
 ** Login   <moriss_h@epitech.net>
 **
 ** Started on  Mon Oct  8 09:34:29 2012 hugues morisset
-** Last update Wed Mar 19 23:56:27 2014 Etienne
+** Last update Thu Mar 20 19:54:00 2014 Etienne
 */
 
 #include "philo.h"
@@ -16,6 +16,7 @@ int	init_philo(t_philosophe *ph, t_philosophe *previous,
   if (create_baguette(&(ph->baguette)))
     return (1);
   ph->id = id;
+  sprintf(ph->color, "\x1b[3%dm", (ph->id % 7) + 1);
   ph->state = REST;
   ph->next = next;
   ph->previous = previous;
