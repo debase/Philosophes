@@ -5,7 +5,7 @@
 ** Login   <debas_e@epitech.net>
 **
 ** Started on  Fri Mar 21 15:00:35 2014 Etienne
-** Last update Fri Mar 21 19:56:44 2014 Etienne
+** Last update Fri Mar 21 19:58:52 2014 Etienne
 */
 
 #include "sdl_philo.h"
@@ -63,7 +63,7 @@ int		thread_sdl(void *data)
 	  fprintf(stderr, "Error during SDL_Flip : %s\n", SDL_GetError());
 	  return (EXIT_FAILURE);
 	}
-      SDL_Delay(100);
+      SDL_Delay(300);
     }
   return (EXIT_SUCCESS);
 }
