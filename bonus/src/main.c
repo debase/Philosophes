@@ -5,7 +5,7 @@
 ** Login   <moriss_h@epitech.net>
 **
 ** Started on  Mon Oct  8 09:34:29 2012 hugues morisset
-** Last update Fri Mar 21 15:16:45 2014 Etienne
+** Last update Fri Mar 21 17:37:16 2014 Etienne
 */
 
 #include <time.h>
@@ -89,7 +89,7 @@ int			main()
     return (1);
   if (end_philo(philo))
     return (1);
-  if (!sdl)
-    sdl_kill(&display);
+  if (sdl != EXIT_FAILURE)
+    return (sdl_kill(&display));
   return (0);
 }
