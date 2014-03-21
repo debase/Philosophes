@@ -5,7 +5,7 @@
 ** Login   <debas_e@epitech.net>
 **
 ** Started on  Fri Mar 21 15:14:45 2014 Etienne
-** Last update Fri Mar 21 17:43:09 2014 Etienne
+** Last update Fri Mar 21 18:28:05 2014 Etienne
 */
 
 #ifndef SDL_PHILO_H_
@@ -38,6 +38,12 @@ typedef struct	s_sdl_philo
   SDL_Surface	*ptr_win;
   t_st_sprite	sprite_state[3];
 }		t_sdl_philo;
+
+typedef struct	s_arg_thread
+{
+  t_sdl_philo	*sdl;
+  t_philosophe	*philo;
+}		t_arg_thread;
 
 int		init_sdl(t_sdl_philo *sdl, t_philosophe *philo);
 int		sdl_kill(t_sdl_philo *sdl);

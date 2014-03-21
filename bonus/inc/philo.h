@@ -5,7 +5,7 @@
 ** Login   <moriss_h@epitech.net>
 **
 ** Started on  Mon Oct  8 09:34:29 2012 hugues morisset
-** Last update Fri Mar 21 11:43:44 2014 Etienne
+** Last update Fri Mar 21 18:37:44 2014 Etienne
 */
 
 #ifndef PHILO_H_INCLUDED
@@ -23,7 +23,7 @@
 
 typedef enum
 {
-  REST,
+  REST = 0,
   EAT,
   THINK
 }	e_pstate;

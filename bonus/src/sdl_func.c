@@ -5,17 +5,34 @@
 ** Login   <debas_e@epitech.net>
 **
 ** Started on  Fri Mar 21 15:00:35 2014 Etienne
-** Last update Fri Mar 21 18:15:31 2014 Etienne
+** Last update Fri Mar 21 18:40:46 2014 Etienne
 */
 
 #include "sdl_philo.h"
 
-int		thread_sdl(void *data)
+int		update_aff(t_philosophe *philo, t_sdl_philo *sdl)
 {
-  t_sdl_philo	*sdl;
+  int		i;
+  SDL_Surface	*surf;
+
+  i = 0;
+  while (i < PHILOSOPHES)
+    {
+      surf = sdl->sprite_state[philo[i].state];
+      if (SDL_BlitSurface(surf, NULL, sdl->ptr_win, &pos) == -1)
+	{
+	  fprintf(stderr, "Error while displaying menu sprite [%s] : %s\n",
+		  BACKROUND, SDL_GetError);
+	  return (EXIT_FAILURE);
+	  i++;
+	}
+    }
+}
+
+int		display_background(t_sdl_philo *sdl)
+{
   SDL_Rect      pos;
 
-  sdl = (t_sdl_philo *)(data);
   pos.x = 0;
   pos.y = 200;
   if (SDL_BlitSurface(sdl->background, NULL, sdl->ptr_win, &pos) == -1)
@@ -24,6 +41,18 @@ int		thread_sdl(void *data)
               BACKROUND, SDL_GetError);
       return (EXIT_FAILURE);
     }
+  return (EXIT_SUCCESS);
+}
+
+int		thread_sdl(void *data)
+{
+  t_sdl_philo	*sdl;
+  t_philosophe	*philo;
+
+  sdl = ((t_arg_thread *)(data))->sdl;
+  philo = ((t_arg_thread *)(data))->philo;
+  if (display_background(sdl) == EXIT_FAILURE)
+    return (EXIT_FAILURE);
   if (SDL_Flip(sdl->ptr_win) == -1)
     {
       fprintf(stderr, "Error during SDL_Flip : %s\n", SDL_GetError());
@@ -32,7 +61,8 @@ int		thread_sdl(void *data)
   while (1)
     {
       printf("SDL !\n");
-      SDL_Delay(500);
+      update_aff();
+      SDL_Delay(100);
     }
   return (EXIT_SUCCESS);
 }
@@ -44,8 +74,8 @@ int		load_texture(t_sdl_philo *sdl)
 
   i = 0;
   sprite[0] = SLEEP_SPRITE;
-  sprite[1] = THINK_SPRITE;
-  sprite[2] = EAT_SPRITE;
+  sprite[1] = EAT_SPRITE;
+  sprite[2] = THINK_SPRITE;
   if ((sdl->background = IMG_Load(BACKROUND)) == NULL)
     {
       fprintf(stderr, "Error while loading %s : %s\n",
@@ -67,6 +97,10 @@ int		load_texture(t_sdl_philo *sdl)
 
 int		init_sdl(t_sdl_philo *sdl, t_philosophe *philo)
 {
+  t_arg_thread	arg;
+
+  arg.sdl = sdl;
+  arg.philo = philo;
   if (load_texture(sdl) == EXIT_FAILURE)
     return (EXIT_FAILURE);
   if (SDL_Init(SDL_INIT_VIDEO) == -1)
@@ -81,7 +115,7 @@ int		init_sdl(t_sdl_philo *sdl, t_philosophe *philo)
       fprintf(stderr, "Error creation SDL window : %s\n", SDL_GetError());
       return (EXIT_FAILURE);
     }
-  sdl->thread = SDL_CreateThread(thread_sdl, sdl);
+  sdl->thread = SDL_CreateThread(thread_sdl, &arg);
   return (EXIT_SUCCESS);
 }
 
