@@ -5,7 +5,7 @@
 ** Login   <moriss_h@epitech.net>
 **
 ** Started on  Mon Oct  8 09:34:29 2012 hugues morisset
-** Last update Fri Mar 21 11:44:09 2014 Etienne
+** Last update Fri Mar 21 23:54:42 2014 Etienne
 */
 
 #include <unistd.h>
@@ -44,12 +44,13 @@ void			philo_think(t_philosophe *ph, int left)
   usleep(rand() % MAX_TIME + 1);
   while (ph->state == THINK)
     {
-      if (!left)
-	ret = pthread_mutex_lock(&ph->next->baguette);
-      else
-	ret = pthread_mutex_lock(&ph->baguette);
+      ret = (!left ? (pthread_mutex_lock(&ph->next->baguette)) :
+	     pthread_mutex_lock(&ph->baguette));
       if (!ret)
 	philo_eat(ph);
+      else
+	(!left ? (pthread_mutex_unlock(&ph->next->baguette)) :
+	 pthread_mutex_unlock(&ph->baguette));
     }
 }
 
