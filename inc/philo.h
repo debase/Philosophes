@@ -5,7 +5,7 @@
 ** Login   <moriss_h@epitech.net>
 **
 ** Started on  Mon Oct  8 09:34:29 2012 hugues morisset
-** Last update Fri Mar 21 01:59:25 2014 Etienne
+** Last update Fri Mar 21 11:43:44 2014 Etienne
 */
 
 #ifndef PHILO_H_INCLUDED
@@ -19,7 +19,7 @@
 # define PHILOSOPHES	7
 # define RESET_COLOR	"\x1b[0m"
 # define MAX_TIME	1000000
-# define NB_FOOD	100
+# define NB_FOOD	10
 
 typedef enum
 {

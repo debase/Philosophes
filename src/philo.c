@@ -5,7 +5,7 @@
 ** Login   <moriss_h@epitech.net>
 **
 ** Started on  Mon Oct  8 09:34:29 2012 hugues morisset
-** Last update Fri Mar 21 02:07:28 2014 Etienne
+** Last update Fri Mar 21 11:44:09 2014 Etienne
 */
 
 #include <unistd.h>
@@ -65,13 +65,11 @@ void			*philosophe(void *arg)
       left = pthread_mutex_trylock(&ph->baguette);
       right = pthread_mutex_trylock(&ph->next->baguette);
       if (!left && !right && (ph->state != EAT))
-	philo_eat(ph);
+  	philo_eat(ph);
       else if ((!left || !right) && (ph->state != THINK))
-	philo_think(ph, left);
+  	philo_think(ph, left);
       else
-	philo_sleep(ph);
+  	philo_sleep(ph);
     }
-  pthread_mutex_unlock(&ph->baguette);
-  pthread_mutex_unlock(&ph->next->baguette);
   return (NULL);
 }
