@@ -5,7 +5,7 @@
 ** Login   <moriss_h@epitech.net>
 **
 ** Started on  Mon Oct  8 09:34:29 2012 hugues morisset
-** Last update Thu Mar 20 21:49:35 2014 Etienne
+** Last update Fri Mar 21 01:59:25 2014 Etienne
 */
 
 #ifndef PHILO_H_INCLUDED
@@ -18,7 +18,8 @@
 
 # define PHILOSOPHES	7
 # define RESET_COLOR	"\x1b[0m"
-# define MAX_TIME	500
+# define MAX_TIME	1000000
+# define NB_FOOD	100
 
 typedef enum
 {
@@ -36,7 +37,7 @@ typedef struct				s_philosophe
   int					id;
   e_pstate				state;
   char					color[20];
-  int					energy;
+  int					food;
 }					t_philosophe;
 
 int	create_baguette(pthread_mutex_t *baguette);

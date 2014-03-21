@@ -5,7 +5,7 @@
 ** Login   <moriss_h@epitech.net>
 **
 ** Started on  Mon Oct  8 09:34:29 2012 hugues morisset
-** Last update Thu Mar 20 21:37:55 2014 Etienne
+** Last update Fri Mar 21 01:58:48 2014 Etienne
 */
 
 #include <time.h>
@@ -19,8 +19,8 @@ int	init_philo(t_philosophe *ph, t_philosophe *previous,
     return (1);
   ph->id = id;
   sprintf(ph->color, "\x1b[3%dm", (ph->id % 7) + 1);
+  ph->food = NB_FOOD;
   ph->state = REST;
-  ph->energy = 100;
   ph->next = next;
   ph->previous = previous;
   return (0);
