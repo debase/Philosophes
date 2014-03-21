@@ -5,7 +5,7 @@
 ** Login   <moriss_h@epitech.net>
 **
 ** Started on  Mon Oct  8 09:34:29 2012 hugues morisset
-** Last update Fri Mar 21 17:37:16 2014 Etienne
+** Last update Fri Mar 21 19:43:08 2014 Etienne
 */
 
 #include <time.h>
@@ -84,9 +84,9 @@ int			main()
   int			sdl;
 
   srand(time(NULL));
-  sdl = init_sdl(&display, philo);
   if (start_philo(philo))
     return (1);
+  sdl = init_sdl(&display, philo);
   if (end_philo(philo))
     return (1);
   if (sdl != EXIT_FAILURE)

@@ -5,13 +5,14 @@
 ** Login   <debas_e@epitech.net>
 **
 ** Started on  Fri Mar 21 15:14:45 2014 Etienne
-** Last update Fri Mar 21 18:28:05 2014 Etienne
+** Last update Fri Mar 21 19:20:30 2014 Etienne
 */
 
 #ifndef SDL_PHILO_H_
 # define SDL_PHILO_H_
 
 #include <stdio.h>
+#include "philo.h"
 #include "SDL.h"
 #include "SDL_image.h"
 #include "SDL_thread.h"
@@ -22,13 +23,10 @@
 # define EAT_SPRITE	"./sprite/eat.png"
 # define BACKROUND	"./sprite/nain.png"
 
-typedef struct	s_philosophe t_philosophe;
-
 typedef struct	s_st_sprite
 {
   SDL_Surface	*sprite;
-  int		posx;
-  int		posy;
+  SDL_Rect	pos;
 }		t_st_sprite;
 
 typedef struct	s_sdl_philo

@@ -5,7 +5,7 @@
 ** Login   <debas_e@epitech.net>
 **
 ** Started on  Fri Mar 21 15:00:35 2014 Etienne
-** Last update Fri Mar 21 18:40:46 2014 Etienne
+** Last update Fri Mar 21 19:56:44 2014 Etienne
 */
 
 #include "sdl_philo.h"
@@ -13,19 +13,21 @@
 int		update_aff(t_philosophe *philo, t_sdl_philo *sdl)
 {
   int		i;
-  SDL_Surface	*surf;
+  t_st_sprite	surf;
 
   i = 0;
-  while (i < PHILOSOPHES)
+  while (i < 7)
     {
       surf = sdl->sprite_state[philo[i].state];
-      if (SDL_BlitSurface(surf, NULL, sdl->ptr_win, &pos) == -1)
+      surf.pos.y = 50;
+      surf.pos.x = 20 + (i * 140);
+      if (SDL_BlitSurface(surf.sprite, NULL, sdl->ptr_win, &surf.pos) == -1)
 	{
 	  fprintf(stderr, "Error while displaying menu sprite [%s] : %s\n",
 		  BACKROUND, SDL_GetError);
 	  return (EXIT_FAILURE);
-	  i++;
 	}
+      i++;
     }
 }
 
@@ -53,15 +55,14 @@ int		thread_sdl(void *data)
   philo = ((t_arg_thread *)(data))->philo;
   if (display_background(sdl) == EXIT_FAILURE)
     return (EXIT_FAILURE);
-  if (SDL_Flip(sdl->ptr_win) == -1)
-    {
-      fprintf(stderr, "Error during SDL_Flip : %s\n", SDL_GetError());
-      return (EXIT_FAILURE);
-    }
   while (1)
     {
-      printf("SDL !\n");
-      update_aff();
+      update_aff(philo, sdl);
+      if (SDL_Flip(sdl->ptr_win) == -1)
+	{
+	  fprintf(stderr, "Error during SDL_Flip : %s\n", SDL_GetError());
+	  return (EXIT_FAILURE);
+	}
       SDL_Delay(100);
     }
   return (EXIT_SUCCESS);
