@@ -32,7 +32,7 @@ typedef struct	s_st_sprite
 typedef struct	s_sdl_philo
 {
   SDL_Thread	*thread;
-  SDL_Surface   *background;
+  SDL_Surface	*background;
   SDL_Surface	*ptr_win;
   t_st_sprite	sprite_state[3];
 }		t_sdl_philo;

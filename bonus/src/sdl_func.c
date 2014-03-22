@@ -14,22 +14,22 @@ int		update_aff(t_philosophe *philo, t_sdl_philo *sdl)
 {
   int		i;
   t_st_sprite	surf;
-  int		state;
 
   i = 0;
-  while (i < 7)
+  while (i < PHILOSOPHES)
     {
       surf = sdl->sprite_state[philo[i].state];
       surf.pos.y = 50;
       surf.pos.x = 20 + (i * 140);
       if (SDL_BlitSurface(surf.sprite, NULL, sdl->ptr_win, &surf.pos) == -1)
-      	{
-      	  fprintf(stderr, "Error while displaying sprite : %s\n",
-      		  SDL_GetError);
-      	  return (EXIT_FAILURE);
-      	}
+        {
+          fprintf(stderr, "Error while displaying sprite : %s\n",
+                  SDL_GetError());
+          return (EXIT_FAILURE);
+        }
       i++;
     }
+  return (EXIT_SUCCESS);
 }
 
 int		display_background(t_sdl_philo *sdl)
@@ -41,7 +41,7 @@ int		display_background(t_sdl_philo *sdl)
   if (SDL_BlitSurface(sdl->background, NULL, sdl->ptr_win, &pos) == -1)
     {
       fprintf(stderr, "Error while displaying menu sprite [%s] : %s\n",
-              BACKROUND, SDL_GetError);
+              BACKROUND, SDL_GetError());
       return (EXIT_FAILURE);
     }
   return (EXIT_SUCCESS);
@@ -60,10 +60,10 @@ int		thread_sdl(void *data)
     {
       update_aff(philo, sdl);
       if (SDL_Flip(sdl->ptr_win) == -1)
-	{
-	  fprintf(stderr, "Error during SDL_Flip : %s\n", SDL_GetError());
-	  return (EXIT_FAILURE);
-	}
+        {
+          fprintf(stderr, "Error during SDL_Flip : %s\n", SDL_GetError());
+          return (EXIT_FAILURE);
+        }
       SDL_Delay(300);
     }
   return (EXIT_SUCCESS);
@@ -81,17 +81,17 @@ int		load_texture(t_sdl_philo *sdl)
   if ((sdl->background = IMG_Load(BACKROUND)) == NULL)
     {
       fprintf(stderr, "Error while loading %s : %s\n",
-	      BACKROUND, SDL_GetError());
+              BACKROUND, SDL_GetError());
       return (EXIT_FAILURE);
     }
   while (i < 3)
     {
       if ((sdl->sprite_state[i].sprite = IMG_Load(sprite[i])) == NULL)
-	{
-	  fprintf(stderr, "Error while loading %s : %s\n",
-		  sprite[i], SDL_GetError());
-	  return (EXIT_FAILURE);
-	}
+        {
+          fprintf(stderr, "Error while loading %s : %s\n",
+                  sprite[i], SDL_GetError());
+          return (EXIT_FAILURE);
+        }
       i++;
     }
   return (EXIT_SUCCESS);
@@ -111,8 +111,8 @@ int		init_sdl(t_sdl_philo *sdl, t_philosophe *philo)
       return (EXIT_FAILURE);
     }
   if ((sdl->ptr_win = SDL_SetVideoMode(sdl->background->w,
-				       sdl->background->h + 200,
-				       32, SDL_HWSURFACE)) == NULL)
+                                       sdl->background->h + 200,
+                                       32, SDL_HWSURFACE)) == NULL)
     {
       fprintf(stderr, "Error creation SDL window : %s\n", SDL_GetError());
       return (EXIT_FAILURE);
