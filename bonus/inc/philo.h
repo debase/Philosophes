@@ -47,4 +47,4 @@ void	*philosophe(void *arg);
 int	destroy_baguette(pthread_mutex_t *baguette);
 int	destroy_philo(t_philosophe *ph);
 
-#endif // PHILO_H_INCLUDED
+#endif /* !PHILO_H_INCLUDED */

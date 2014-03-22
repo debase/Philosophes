@@ -53,7 +53,7 @@ int		thread_sdl(void *data)
 {
   t_sdl_philo	*sdl;
   t_philosophe	*philo;
-  SDL_Event     event;
+  SDL_Event	event;
 
   sdl = ((t_arg_thread *)(data))->sdl;
   philo = ((t_arg_thread *)(data))->philo;
@@ -61,18 +61,19 @@ int		thread_sdl(void *data)
     return (EXIT_FAILURE);
   while (1)
     {
+      while (SDL_PollEvent(&event))
+        if (event.type == SDL_QUIT || ((event.type == SDL_KEYDOWN)
+                                       && event.key.keysym.sym == SDLK_ESCAPE))
+          {
+            SDL_Quit();
+            return (EXIT_SUCCESS);
+          }
       update_aff(philo, sdl);
       if (SDL_Flip(sdl->ptr_win) == -1)
         {
           fprintf(stderr, "Error during SDL_Flip : %s\n", SDL_GetError());
           return (EXIT_FAILURE);
         }
-      SDL_PollEvent(&event);
-      if (event.type == SDL_QUIT)
-	{
-	  SDL_Quit();
-	  return (EXIT_SUCCESS);
-	}
       SDL_Delay(30);
     }
   return (EXIT_SUCCESS);
