@@ -5,7 +5,7 @@
 ** Login   <debas_e@epitech.net>
 **
 ** Started on  Fri Mar 21 15:00:35 2014 Etienne
-** Last update Fri Mar 21 19:58:52 2014 Etienne
+** Last update Sat Mar 22 01:14:16 2014 Etienne
 */
 
 #include "sdl_philo.h"
@@ -14,6 +14,7 @@ int		update_aff(t_philosophe *philo, t_sdl_philo *sdl)
 {
   int		i;
   t_st_sprite	surf;
+  int		state;
 
   i = 0;
   while (i < 7)
@@ -22,11 +23,11 @@ int		update_aff(t_philosophe *philo, t_sdl_philo *sdl)
       surf.pos.y = 50;
       surf.pos.x = 20 + (i * 140);
       if (SDL_BlitSurface(surf.sprite, NULL, sdl->ptr_win, &surf.pos) == -1)
-	{
-	  fprintf(stderr, "Error while displaying menu sprite [%s] : %s\n",
-		  BACKROUND, SDL_GetError);
-	  return (EXIT_FAILURE);
-	}
+      	{
+      	  fprintf(stderr, "Error while displaying sprite : %s\n",
+      		  SDL_GetError);
+      	  return (EXIT_FAILURE);
+      	}
       i++;
     }
 }
