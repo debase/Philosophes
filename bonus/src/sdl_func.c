@@ -5,7 +5,7 @@
 ** Login   <debas_e@epitech.net>
 **
 ** Started on  Fri Mar 21 15:00:35 2014 Etienne
-** Last update Sat Mar 22 01:14:16 2014 Etienne
+** Last update Sat Mar 22 16:00:55 2014 Etienne
 */
 
 #include "sdl_philo.h"
@@ -14,11 +14,13 @@ int		update_aff(t_philosophe *philo, t_sdl_philo *sdl)
 {
   int		i;
   t_st_sprite	surf;
+  int		state;
 
   i = 0;
   while (i < PHILOSOPHES)
     {
-      surf = sdl->sprite_state[philo[i].state];
+      state = philo[i].state;
+      surf = sdl->sprite_state[state];
       surf.pos.y = 50;
       surf.pos.x = 20 + (i * 140);
       if (SDL_BlitSurface(surf.sprite, NULL, sdl->ptr_win, &surf.pos) == -1)
@@ -51,6 +53,7 @@ int		thread_sdl(void *data)
 {
   t_sdl_philo	*sdl;
   t_philosophe	*philo;
+  SDL_Event     event;
 
   sdl = ((t_arg_thread *)(data))->sdl;
   philo = ((t_arg_thread *)(data))->philo;
@@ -64,7 +67,13 @@ int		thread_sdl(void *data)
           fprintf(stderr, "Error during SDL_Flip : %s\n", SDL_GetError());
           return (EXIT_FAILURE);
         }
-      SDL_Delay(300);
+      SDL_PollEvent(&event);
+      if (event.type == SDL_QUIT)
+	{
+	  SDL_Quit();
+	  return (EXIT_SUCCESS);
+	}
+      SDL_Delay(30);
     }
   return (EXIT_SUCCESS);
 }
