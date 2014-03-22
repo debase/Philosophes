@@ -82,11 +82,14 @@ int			main()
   t_philosophe		philo[PHILOSOPHES];
   t_sdl_philo		display;
   int			sdl;
+  t_arg_thread		arg;
 
+  arg.sdl = &display;
+  arg.philo = philo;
   srand(time(NULL));
   if (start_philo(philo))
     return (1);
-  sdl = init_sdl(&display, philo);
+  sdl = init_sdl(&arg);
   if (end_philo(philo))
     return (1);
   if (sdl != EXIT_FAILURE)

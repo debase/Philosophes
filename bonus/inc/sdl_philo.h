@@ -31,7 +31,7 @@ typedef struct	s_st_sprite
 
 typedef struct	s_sdl_philo
 {
-  SDL_Thread	*thread;
+  pthread_t	thread;
   SDL_Surface	*background;
   SDL_Surface	*ptr_win;
   t_st_sprite	sprite_state[3];
@@ -43,7 +43,7 @@ typedef struct	s_arg_thread
   t_philosophe	*philo;
 }		t_arg_thread;
 
-int		init_sdl(t_sdl_philo *sdl, t_philosophe *philo);
+int		init_sdl(t_arg_thread *sdl);
 int		sdl_kill(t_sdl_philo *sdl);
 
 #endif /* !SDL_PHILO_H_ */

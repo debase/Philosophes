@@ -49,7 +49,7 @@ int		display_background(t_sdl_philo *sdl)
   return (EXIT_SUCCESS);
 }
 
-int		thread_sdl(void *data)
+void		*thread_sdl(void *data)
 {
   t_sdl_philo	*sdl;
   t_philosophe	*philo;
@@ -58,7 +58,7 @@ int		thread_sdl(void *data)
   sdl = ((t_arg_thread *)(data))->sdl;
   philo = ((t_arg_thread *)(data))->philo;
   if (display_background(sdl) == EXIT_FAILURE)
-    return (EXIT_FAILURE);
+    return (NULL);
   while (1)
     {
       while (SDL_PollEvent(&event))
@@ -66,17 +66,17 @@ int		thread_sdl(void *data)
                                        && event.key.keysym.sym == SDLK_ESCAPE))
           {
             SDL_Quit();
-            return (EXIT_SUCCESS);
+            return (NULL);
           }
       update_aff(philo, sdl);
       if (SDL_Flip(sdl->ptr_win) == -1)
         {
           fprintf(stderr, "Error during SDL_Flip : %s\n", SDL_GetError());
-          return (EXIT_FAILURE);
+          return (NULL);
         }
       SDL_Delay(30);
     }
-  return (EXIT_SUCCESS);
+  return (NULL);
 }
 
 int		load_texture(t_sdl_philo *sdl)
@@ -107,27 +107,23 @@ int		load_texture(t_sdl_philo *sdl)
   return (EXIT_SUCCESS);
 }
 
-int		init_sdl(t_sdl_philo *sdl, t_philosophe *philo)
+int		init_sdl(t_arg_thread *sdl)
 {
-  t_arg_thread	arg;
-
-  arg.sdl = sdl;
-  arg.philo = philo;
-  if (load_texture(sdl) == EXIT_FAILURE)
+  if (load_texture(sdl->sdl) == EXIT_FAILURE)
     return (EXIT_FAILURE);
   if (SDL_Init(SDL_INIT_VIDEO) == -1)
     {
       fprintf(stderr, "Error init SDL : %s\n", SDL_GetError());
       return (EXIT_FAILURE);
     }
-  if ((sdl->ptr_win = SDL_SetVideoMode(sdl->background->w,
-                                       sdl->background->h + 200,
-                                       32, SDL_HWSURFACE)) == NULL)
+  if ((sdl->sdl->ptr_win = SDL_SetVideoMode(sdl->sdl->background->w,
+                           sdl->sdl->background->h + 200,
+                           32, SDL_HWSURFACE)) == NULL)
     {
       fprintf(stderr, "Error creation SDL window : %s\n", SDL_GetError());
       return (EXIT_FAILURE);
     }
-  sdl->thread = SDL_CreateThread(thread_sdl, &arg);
+  pthread_create(&(sdl->sdl->thread), NULL, &thread_sdl, sdl);
   return (EXIT_SUCCESS);
 }
 
