@@ -5,18 +5,18 @@
 ** Login   <debas_e@epitech.net>
 **
 ** Started on  Fri Mar 21 15:14:45 2014 Etienne
-** Last update Sun Mar 23 13:00:42 2014 Etienne
+** Last update Sun Mar 23 14:50:20 2014 Etienne
 */
 
 #ifndef SDL_PHILO_H_
 # define SDL_PHILO_H_
 
-#include <stdio.h>
-#include "philo.h"
-#include "SDL.h"
-#include "SDL_image.h"
-#include "SDL_thread.h"
-#include "SDL_mixer.h"
+# include <stdio.h>
+# include "philo.h"
+# include "SDL.h"
+# include "SDL_image.h"
+# include "SDL_thread.h"
+# include "SDL_mixer.h"
 
 # define SLEEP_SPRITE	"./sprite/sleep.png"
 # define THINK_SPRITE	"./sprite/think.png"

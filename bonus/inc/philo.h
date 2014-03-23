@@ -5,11 +5,11 @@
 ** Login   <moriss_h@epitech.net>
 **
 ** Started on  Mon Oct  8 09:34:29 2012 hugues morisset
-** Last update Fri Mar 21 18:37:44 2014 Etienne
+** Last update Sun Mar 23 14:49:44 2014 Etienne
 */
 
-#ifndef PHILO_H_INCLUDED
-# define PHILO_H_INCLUDED
+#ifndef PHILO_H_
+# define PHILO_H_
 
 # include <stdlib.h>
 # include <stdio.h>
@@ -28,17 +28,17 @@ typedef enum
   THINK
 }	e_pstate;
 
-typedef struct				s_philosophe
+typedef struct		s_philosophe
 {
-  pthread_t				thread;
-  pthread_mutex_t			baguette;
-  struct s_philosophe			*next;
-  struct s_philosophe			*previous;
-  int					id;
-  e_pstate				state;
-  char					color[20];
-  int					food;
-}					t_philosophe;
+  pthread_t		thread;
+  pthread_mutex_t	baguette;
+  struct s_philosophe	*next;
+  struct s_philosophe	*previous;
+  int			id;
+  e_pstate		state;
+  char			color[20];
+  int			food;
+}			t_philosophe;
 
 int	create_baguette(pthread_mutex_t *baguette);
 int	init_philo(t_philosophe *ph, t_philosophe *previous,
@@ -47,4 +47,4 @@ void	*philosophe(void *arg);
 int	destroy_baguette(pthread_mutex_t *baguette);
 int	destroy_philo(t_philosophe *ph);
 
-#endif /* !PHILO_H_INCLUDED */
+#endif /* !PHILO_H_ */

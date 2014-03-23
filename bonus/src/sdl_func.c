@@ -5,7 +5,7 @@
 ** Login   <debas_e@epitech.net>
 **
 ** Started on  Fri Mar 21 15:00:35 2014 Etienne
-** Last update Sun Mar 23 13:00:45 2014 Etienne
+** Last update Sun Mar 23 14:48:49 2014 Etienne
 */
 
 #include "sdl_philo.h"
