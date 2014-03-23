@@ -5,7 +5,7 @@
 ## Login   <lavand_m@epitech.net>
 ##
 ## Started on  Mon Mar 18 14:50:10 2013 maxime lavandier
-## Last update Sun Mar 23 12:33:29 2014 Etienne
+## Last update Sun Mar 23 13:26:29 2014 Etienne
 ##
 
 SRC=		./src/main.c		\
@@ -19,9 +19,9 @@ OBJ=		$(SRC:.c=.o)
 
 NAME=		philo
 
-CFLAGS+=		-I./inc/ -Wall -Wextra
-CFLAGS+=		-I./SDL/include -L./SDL/lib  -lSDL_image
-CFLAGS+=		-lSDL_mixer -lSDL -lm -lpthread -ldl -lrt -g
+CFLAGS+=	-I./inc/ -Wall -Wextra
+CFLAGS+=	-I./SDL/include -L./SDL/lib  -lSDL_image
+CFLAGS+=	-lSDL_mixer -lSDL -lm -lpthread -ldl -lrt
 
 INVOCATION=	cc
 
