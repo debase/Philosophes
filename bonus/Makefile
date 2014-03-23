@@ -5,14 +5,15 @@
 ## Login   <lavand_m@epitech.net>
 ##
 ## Started on  Mon Mar 18 14:50:10 2013 maxime lavandier
-## Last update Fri Mar 21 17:33:58 2014 Etienne
+## Last update Sun Mar 23 12:33:29 2014 Etienne
 ##
 
 SRC=		./src/main.c		\
 		./src/philo.c		\
 		./src/mutex.c		\
 		./src/sdl_func.c	\
-
+		./src/init_sdl.c	\
+		./src/display_sdl.c	\
 
 OBJ=		$(SRC:.c=.o)
 

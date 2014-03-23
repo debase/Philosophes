@@ -5,76 +5,50 @@
 ** Login   <debas_e@epitech.net>
 **
 ** Started on  Fri Mar 21 15:00:35 2014 Etienne
-** Last update Sat Mar 22 16:00:55 2014 Etienne
+** Last update Sun Mar 23 13:00:45 2014 Etienne
 */
 
 #include "sdl_philo.h"
 
-int		update_aff(t_philosophe *philo, t_sdl_philo *sdl)
+int		thread_loop(t_sdl_philo *sdl, t_philosophe *philo)
 {
-  int		i;
-  t_st_sprite	surf;
-  int		state;
+  SDL_Event	event;
 
-  i = 0;
-  while (i < PHILOSOPHES)
+  while (SDL_PollEvent(&event))
+    if (event.type == SDL_QUIT || ((event.type == SDL_KEYDOWN)
+				   && event.key.keysym.sym == SDLK_ESCAPE))
+      {
+	SDL_Quit();
+	return (1);
+      }
+  update_aff(philo, sdl);
+  if (SDL_Flip(sdl->ptr_win) == -1)
     {
-      state = philo[i].state;
-      surf = sdl->sprite_state[state];
-      surf.pos.y = 50;
-      surf.pos.x = 20 + (i * 140);
-      if (SDL_BlitSurface(surf.sprite, NULL, sdl->ptr_win, &surf.pos) == -1)
-        {
-          fprintf(stderr, "Error while displaying sprite : %s\n",
-                  SDL_GetError());
-          return (EXIT_FAILURE);
-        }
-      i++;
+      fprintf(stderr, "Error during SDL_Flip : %s\n", SDL_GetError());
+      return (1);
     }
-  return (EXIT_SUCCESS);
-}
-
-int		display_background(t_sdl_philo *sdl)
-{
-  SDL_Rect      pos;
-
-  pos.x = 0;
-  pos.y = 200;
-  if (SDL_BlitSurface(sdl->background, NULL, sdl->ptr_win, &pos) == -1)
-    {
-      fprintf(stderr, "Error while displaying menu sprite [%s] : %s\n",
-              BACKROUND, SDL_GetError());
-      return (EXIT_FAILURE);
-    }
-  return (EXIT_SUCCESS);
+  SDL_Delay(30);
+  return (0);
 }
 
 void		*thread_sdl(void *data)
 {
   t_sdl_philo	*sdl;
   t_philosophe	*philo;
-  SDL_Event	event;
 
   sdl = ((t_arg_thread *)(data))->sdl;
   philo = ((t_arg_thread *)(data))->philo;
   if (display_background(sdl) == EXIT_FAILURE)
     return (NULL);
+  if (sdl->music != NULL)
+    {
+      Mix_HaltMusic();
+      Mix_PlayMusic(sdl->music, -1);
+    }
   while (1)
     {
-      while (SDL_PollEvent(&event))
-        if (event.type == SDL_QUIT || ((event.type == SDL_KEYDOWN)
-                                       && event.key.keysym.sym == SDLK_ESCAPE))
-          {
-            SDL_Quit();
-            return (NULL);
-          }
-      update_aff(philo, sdl);
-      if (SDL_Flip(sdl->ptr_win) == -1)
-        {
-          fprintf(stderr, "Error during SDL_Flip : %s\n", SDL_GetError());
-          return (NULL);
-        }
-      SDL_Delay(30);
+      if (thread_loop(sdl, philo) == 1)
+	return (NULL);
     }
   return (NULL);
 }
@@ -107,36 +81,18 @@ int		load_texture(t_sdl_philo *sdl)
   return (EXIT_SUCCESS);
 }
 
-int		init_sdl(t_arg_thread *sdl)
+void		init_music(t_sdl_philo *sdl)
 {
-  if (load_texture(sdl->sdl) == EXIT_FAILURE)
-    return (EXIT_FAILURE);
-  if (SDL_Init(SDL_INIT_VIDEO) == -1)
+  sdl->music = NULL;
+  if (Mix_OpenAudio(44100, MIX_DEFAULT_FORMAT, MIX_DEFAULT_CHANNELS, 4096))
     {
-      fprintf(stderr, "Error init SDL : %s\n", SDL_GetError());
-      return (EXIT_FAILURE);
+      fprintf(stderr, "Error initializing audio : %s", Mix_GetError());
+      return ;
     }
-  if ((sdl->sdl->ptr_win = SDL_SetVideoMode(sdl->sdl->background->w,
-                           sdl->sdl->background->h + 200,
-                           32, SDL_HWSURFACE)) == NULL)
+  sdl->music = Mix_LoadMUS(MUSIC_PATH);
+  if (sdl->music == NULL)
     {
-      fprintf(stderr, "Error creation SDL window : %s\n", SDL_GetError());
-      return (EXIT_FAILURE);
+      fprintf(stderr, "Error while loading music [%s] : %s\n",
+	      MUSIC_PATH, SDL_GetError());
     }
-  pthread_create(&(sdl->sdl->thread), NULL, &thread_sdl, sdl);
-  return (EXIT_SUCCESS);
-}
-
-int		sdl_kill(t_sdl_philo *sdl)
-{
-  int		i;
-
-  i = 0;
-  SDL_FreeSurface(sdl->background);
-  while (i < 3)
-    {
-      SDL_FreeSurface(sdl->sprite_state[i].sprite);
-      i++;
-    }
-  return (0);
 }
